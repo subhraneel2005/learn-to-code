@@ -4,7 +4,6 @@ const courseSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        unique: true
     },
     description: {
         type: String,
@@ -18,14 +17,13 @@ const courseSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    date:{
-        type: Date,
-        default: Date.now
-    },
     img: {
         type: String
     },
-    id: Math.random().toString()
+    _id: {
+        type: String,
+        default: () => Math.random().toString(36).substr(2,9)
+    },
 })
 
 const Course = mongoose.models.courses || mongoose.model("courses", courseSchema);

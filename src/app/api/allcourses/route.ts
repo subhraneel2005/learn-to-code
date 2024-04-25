@@ -1,6 +1,8 @@
-import {connectDB} from "@/database/dbConfig";
+import {connect} from "@/database/dbConfig";
 import Course from "@/models/courseModel";
 import {NextRequest,NextResponse} from "next/server";
+
+connect();
 
 export async function GET(){
     try {
