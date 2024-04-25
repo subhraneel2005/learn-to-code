@@ -24,8 +24,8 @@ const courseSchema = new mongoose.Schema({
     },
     img: {
         type: String
-    }
-    
+    },
+    id: Math.random().toString()
 })
 
 const Course = mongoose.models.courses || mongoose.model("courses", courseSchema);
