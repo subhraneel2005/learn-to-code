@@ -1,11 +1,13 @@
+import SessionWrapper from "@/components/SessionWrapper";
+
 export default function RootLayout({
     children,
   }: Readonly<{
     children: React.ReactNode;
   }>) {
     return (
-      <div>
+      <SessionWrapper>
         {children}
-      </div>
+      </SessionWrapper>
     );
   }
