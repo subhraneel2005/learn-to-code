@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { useState } from "react";
 import Link from "next/link";
+import { getSession} from "next-auth/react"
 
 
 export default function AdminPanel() {
@@ -23,12 +24,13 @@ export default function AdminPanel() {
   const [published,setPublished] = useState(false);
   const [price,setPrice] = useState(0);
   const [img,setImg] = useState("");
+  const [creatorName, setCreaterName] = useState("")
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     const courseData = {
-      title,description,price
+      title,description,price,img, creatorName
     };
 
     try {
@@ -46,6 +48,8 @@ export default function AdminPanel() {
 
       setTitle("");
       setDescription("");
+      setCreaterName("");
+      setImg("");
       setPrice(0);
 
       alert("Course created successfully");
@@ -55,48 +59,51 @@ export default function AdminPanel() {
       alert("Error creating course");
     }
   }
-
-  const { data: session } = useSession()
-  if(session) {
-    return (
-      <main className="min-h-screen w-full p-3  text-slate-400 flex justify-center items-center select-none">
-        <div className="block">
-          <nav className="fixed top-0 left-0 w-full bg-transparent z-10 flex py-2 px-4 gap-6">
-          <Button variant="outline" onClick={() => signOut()}>Sign out</Button>
-          <Avatar>
-            <AvatarImage src={session.user?.image!} />
-            <AvatarFallback>{session.user?.email}</AvatarFallback>
-          </Avatar>
-          </nav>
-          <div className="flex">
-            <Dialog>
-            <DialogTrigger asChild>
-                <Button variant="outline">Create a new course</Button>
-              </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <h1 className="text-center font-bold text-3xl">Create a new course</h1>
-              <form onSubmit={onSubmitHandler} className="space-y-5 mt-10">
-                <Input required placeholder="Course title" value={title} onChange={(e) => setTitle(e.target.value)}/>
-                <Input required placeholder="Course description" value={description} onChange={(e) => setDescription(e.target.value)}/>
-                <Input required type="number" value={price} onChange={(e) => setPrice(parseFloat(e.target.value))}/>
-                {/* <Input type="file" value={img} onChange={(e) => setImg(e.target.value)} accept="image/*"/> */}
-
-                <Button type="submit">Create</Button>
-              </form>
-            </DialogHeader>
-          </DialogContent>
-            </Dialog>
-            <div className="ml-7">
-            <Link href={"/admin/courses"}>
-              <Button variant="outline">All Courses</Button>
-            </Link>
+   
+  const{ data: session} = useSession()
+    if(session) {
+      return (
+        <main className="min-h-screen w-full p-3  text-slate-400 flex justify-center items-center select-none">
+          <div className="block">
+            <nav className="fixed top-0 left-0 w-full bg-transparent z-10 flex py-2 px-4 gap-6">
+            <Button variant="outline" onClick={() => signOut()}>Sign out</Button>
+            <Avatar>
+              <AvatarImage src={session.user?.image!} />
+            </Avatar>
+            </nav>
+            <div className="flex">
+              <Dialog>
+              <DialogTrigger asChild>
+                  <Button variant="outline">Create a new course</Button>
+                </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <h1 className="text-center font-bold text-3xl">Create a new course</h1>
+                <form onSubmit={onSubmitHandler} className="space-y-5 mt-10">
+                  <Input required placeholder="Course title" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                  <Input required placeholder="Course description" value={description} onChange={(e) => setDescription(e.target.value)}/>
+                  <Input required placeholder="Course Thumbnail" value={img} onChange={(e) => setImg(e.target.value)}/>
+                  <Input required type="number" value={price} onChange={(e) => setPrice(parseFloat(e.target.value))}/>
+                  <Input required placeholder="Enter admin name" value={creatorName} onChange={(e) => setCreaterName(e.target.value)}/>
+                  {/* <Input type="file" value={img} onChange={(e) => setImg(e.target.value)} accept="image/*"/> */}
+  
+                  <Button type="submit">Create</Button>
+                </form>
+              </DialogHeader>
+            </DialogContent>
+              </Dialog>
+              <div className="ml-7">
+              <Link href={"/admin/courses"}>
+                <Button variant="outline">All Courses</Button>
+              </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </main>
-    )
-  }
+        </main>
+      )
+    }
+  
+  
   return <div className="min-h-screen w-full p-3 flex justify-center text-slate-400 items-center select-none">
      <div className="md:w-[600px] w-[300px] h-[370px] block space-y-10 mt-10 md:mt-56">
       <h1 className="text-3xl font-extrabold md:text-5xl text-center">Please sign in to continue</h1>

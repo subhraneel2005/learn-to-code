@@ -7,6 +7,7 @@ import Image from "next/image";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useSession, signIn, signOut } from "next-auth/react"
+import { Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
 
 export default function Courses(){
 
@@ -15,12 +16,12 @@ export default function Courses(){
         title: string;
         description: string;
         price: number;
-        img?: string;
+        img: string;
         published?: boolean;
+        creatorName: string;
     }
 
     const [courses,setCourses] = useState<Course[]>([]);
-
 
     useEffect(() =>{
         const fetchAllCourses = async () => {
@@ -63,7 +64,7 @@ export default function Courses(){
                             </CardItem>
                             <CardItem translateZ="100" className="w-full mt-4">
                             <Image
-                                src={singleCourse.img!}
+                                src={singleCourse.img}
                                 height="1000"
                                 width="1000"
                                 className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
@@ -73,9 +74,15 @@ export default function Courses(){
                             <div className="flex justify-between items-center mt-20">
                             <CardItem
                                 translateZ={20}
-                                className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
+                                className="px-4 py-2 rounded-xl text-lg font-normal dark:text-white"
                             >
                                {`₹${singleCourse.price}`}
+                            </CardItem>
+                            <CardItem
+                                translateZ={20}
+                                className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
+                            >
+                               {`Created by ${singleCourse.creatorName}`}
                             </CardItem>
                             <Button variant="destructive">Delete</Button>
                             </div>
