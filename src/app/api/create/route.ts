@@ -1,16 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Course from '@/models/courseModel';
+import userModel from '@/models/userModel';
 import { connect } from '@/database/dbConfig';
 import { getSession } from "next-auth/react"
 import { NextApiRequest } from 'next';
 
+
 connect();
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest, req:NextApiRequest) {
+
+  const session = await getSession({req});
+  if(!session){
+    console.log("not authenticated no session");
+    
+  }
+  const currentUser = session?.user?.name;
 
   try {
     const reqData = await request.json();
     const { price, title, description, published, img, creatorName } = reqData;
+
+    creatorName : currentUser;
 
     const course = await Course.findOne({ title });
 
@@ -27,6 +38,8 @@ export async function POST(request: NextRequest) {
       creatorName,
     });
 
+    console.log(newCourse);
+    
     const savedCourse = await newCourse.save();
 
     return NextResponse.json({

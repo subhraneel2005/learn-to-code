@@ -68,7 +68,7 @@ export default function AdminPanel() {
             <nav className="fixed top-0 left-0 w-full bg-transparent z-10 flex py-2 px-4 gap-6">
             <Button variant="outline" onClick={() => signOut()}>Sign out</Button>
             <Avatar>
-              <AvatarImage src={session.user?.image!} />
+              <AvatarImage src={session.user?.image!}/>
             </Avatar>
             </nav>
             <div className="flex">
@@ -84,8 +84,7 @@ export default function AdminPanel() {
                   <Input required placeholder="Course description" value={description} onChange={(e) => setDescription(e.target.value)}/>
                   <Input required placeholder="Course Thumbnail" value={img} onChange={(e) => setImg(e.target.value)}/>
                   <Input required type="number" value={price} onChange={(e) => setPrice(parseFloat(e.target.value))}/>
-                  <Input required placeholder="Enter admin name" value={creatorName} onChange={(e) => setCreaterName(e.target.value)}/>
-                  {/* <Input type="file" value={img} onChange={(e) => setImg(e.target.value)} accept="image/*"/> */}
+                  
   
                   <Button type="submit">Create</Button>
                 </form>

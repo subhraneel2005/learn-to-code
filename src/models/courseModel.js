@@ -22,7 +22,7 @@ const courseSchema = new mongoose.Schema({
         type: String
     },
     creatorName: {
-        type: String,
+       type: String
     },
     _id: {
         type: String,
