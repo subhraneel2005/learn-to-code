@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/models/courseModel.js", "src/components/SessionWrapper.js", "src/app/api/auth/[...nextauth]/route.ts", "src/models/userModel.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/models/courseModel.js", "src/database/firestoreConfig.js", "src/lib/firebaseAdmin.js", "src/components/ui/Login.jsx"],
   "exclude": ["node_modules"]
 }
