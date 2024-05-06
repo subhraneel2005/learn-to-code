@@ -2,7 +2,7 @@ export interface Course{
     id?: string;
     title: string;
     description: string;
-    image: string;
+    img: string;
     price: number;
-    userId: string;
+    userEmail: string;
 }
